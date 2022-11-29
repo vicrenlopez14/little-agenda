@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create contact</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/7.css') }}">
+</head>
+<body>
+<div class="background">
+    <div class="window active" style="max-width: 800px; ">
+        <div class="title-bar">
+            <div class="title-bar-text">Little agenda - Update contact</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+        <ul role="menubar">
+            <li role="menuitem" tabindex="0"><a href="{{ url_for('index') }}">Agenda</a></li>
+        </ul>
+
+        <article role="tabpanel">
+            {% from "_formhelpers.html" import render_field %}
+            <form action="{{ url_for('update_contact', id=contact.id) }}" method="post">
+                <fieldset>
+                    <legend>Update {{ contact.name }}'s contact</legend>
+                    {{ render_field(form.name) }}
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.phone) }}
+                    {{ render_field(form.address) }}
+                    {{ render_field(form.alias) }}
+                </fieldset>
+                <section class="field-row">
+                    <input type="submit" value="Update">
+                </section>
+            </form>
+
+
+        </article>
+    </div>
+
+</div>
+</body>
+</html>

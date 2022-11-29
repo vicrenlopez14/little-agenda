@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Little Agenda</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/7.css') }}">
+</head>
+<body>
+<div class="background">
+    <div class="window active" style="max-width: 800px; ">
+        <div class="title-bar">
+            <div class="title-bar-text">Little agenda</div>
+            <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+            </div>
+        </div>
+
+        <ul role="menubar">
+            <li role="menuitem" tabindex="0"><a href="{{ url_for('create_contact') }}">Create</a></li>
+        </ul>
+
+        {% block content %}
+            {% for contact in contacts %}
+                <article role="tabpanel">
+
+                    <ul class="tree-view has-collapse-button has-connector has-container">
+                        <details open>
+                            <summary>{{ contact.name }}</summary>
+                            <ul>
+                                <li>Email: {{ contact.email }}</li>
+                                <li>Phone: {{ contact.phone }}</li>
+                                <li>Address: {{ contact.address }}</li>
+                                <li>Alias: {{ contact.alias }}</li>
+                                <li>
+                                    <details>
+                                        <summary>Actions</summary>
+                                        <ul>
+                                            <li>
+                                                <button><a
+                                                        href="{{ url_for('delete_contact', id=contact.id) }}">Delete</a>
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button><a
+                                                        href="{{ url_for('update_contact', id=contact.id) }}">Update</a>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+                            </ul>
+                        </details>
+                    </ul>
+                </article>
+            {% endfor %}
+        {% endblock %}
+    </div>
+
+</div>
+</body>
+</html>
